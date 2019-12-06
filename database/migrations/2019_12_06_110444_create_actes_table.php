@@ -15,6 +15,7 @@ class CreateActesTable extends Migration
     {
         Schema::create('actes', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name', 50);
             $table->timestamps();
         });
     }
