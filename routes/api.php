@@ -27,6 +27,10 @@ Route::put('/users/{user}', 'UserController@update');
 //Destroy one user
 Route::delete('/users/{user}', 'UserController@destroy');
 
+
+//Routes of actes module
+Route::resource('/actes', 'ActeController')->except(['create', 'edit']);
+
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Acte;
 use Illuminate\Http\Request;
+use App\Http\Resources\ActeResource;
 
 class ActeController extends Controller
 {
@@ -14,19 +15,11 @@ class ActeController extends Controller
      */
     public function index()
     {
-        //
+        $actes = Acte::all();
+        return ActeResource::collection($actes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -35,8 +28,15 @@ class ActeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $acte = new Acte();
+
+        $acte->name = $request->label;
+
+        $acte->save();
+
+        return new ActeResource($acte);
     }
+
 
     /**
      * Display the specified resource.
@@ -49,16 +49,7 @@ class ActeController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Acte  $acte
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Acte $acte)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -69,7 +60,10 @@ class ActeController extends Controller
      */
     public function update(Request $request, Acte $acte)
     {
-        //
+
+        $acte->name = $request->label;
+        $acte->save();
+        return new ActeResource($acte);
     }
 
     /**
@@ -80,6 +74,7 @@ class ActeController extends Controller
      */
     public function destroy(Acte $acte)
     {
-        //
+        $acte->delete();
+        return [];
     }
 }

@@ -20,15 +20,7 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -61,16 +53,7 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
+ 
 
     /**
      * Update the specified resource in storage.
@@ -81,7 +64,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->profile_id = $request->input('profile');;
+       
+        $user->save();
+
+        return new UserResource($user);
     }
 
     /**
@@ -92,6 +81,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return new UserResource($user);
     }
 }
